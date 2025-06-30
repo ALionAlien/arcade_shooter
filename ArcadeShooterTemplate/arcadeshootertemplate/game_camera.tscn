@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://k51glisa407s"]
+
+[ext_resource type="Script" uid="uid://bkyyndekghnf4" path="res://game_camera.gd" id="1_a63qp"]
+[ext_resource type="Script" uid="uid://dbjwnlilocj12" path="res://control.gd" id="2_rkpd8"]
+
+[node name="GameCamera" type="Camera3D" node_paths=PackedStringArray("query_label")]
+script = ExtResource("1_a63qp")
+query_label = NodePath("Control/HSplitContainer/QueryResultLabel")
+
+[node name="Control" type="Control" parent="." node_paths=PackedStringArray("points_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_rkpd8")
+points_label = NodePath("HSplitContainer/Points")
+
+[node name="HSplitContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -351.0
+offset_bottom = 93.0
+grow_horizontal = 0
+
+[node name="QueryResultLabel" type="Label" parent="Control/HSplitContainer"]
+layout_mode = 2
+
+[node name="IncreasePointsButton" type="Button" parent="Control/HSplitContainer"]
+layout_mode = 2
+text = "increase points"
+
+[node name="DecreasePointsButton" type="Button" parent="Control/HSplitContainer"]
+layout_mode = 2
+text = "Decrease points"
+
+[node name="Points" type="Label" parent="Control/HSplitContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="Control/HSplitContainer/IncreasePointsButton" to="Control" method="_on_increase_points_button_pressed"]
+[connection signal="pressed" from="Control/HSplitContainer/DecreasePointsButton" to="Control" method="_on_decrease_points_button_pressed"]

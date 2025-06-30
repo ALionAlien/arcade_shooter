@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0ytot1itofmn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_11kbe"]
+size = Vector3(20.7608, 0.752153, 34.6937)
+
+[sub_resource type="BoxMesh" id="BoxMesh_p5re5"]
+size = Vector3(20.875, 0.73, 34.655)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qhyq2"]
+
+[sub_resource type="Sky" id="Sky_bexhn"]
+sky_material = SubResource("ProceduralSkyMaterial_qhyq2")
+
+[sub_resource type="Environment" id="Environment_t7iv1"]
+background_mode = 2
+sky = SubResource("Sky_bexhn")
+
+[node name="Level" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.373347, 0)
+shape = SubResource("BoxShape3D_11kbe")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+mesh = SubResource("BoxMesh_p5re5")
+skeleton = NodePath("../..")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_t7iv1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, -0.136494, 0.990641, 0, -0.990641, -0.136494, 0, 10.933, 0)
