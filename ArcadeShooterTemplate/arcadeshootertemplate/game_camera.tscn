@@ -3,11 +3,13 @@
 [ext_resource type="Script" uid="uid://bkyyndekghnf4" path="res://game_camera.gd" id="1_a63qp"]
 [ext_resource type="Script" uid="uid://dbjwnlilocj12" path="res://control.gd" id="2_rkpd8"]
 
-[node name="GameCamera" type="Camera3D" node_paths=PackedStringArray("query_label")]
+[node name="GameCamera" type="Camera3D" node_paths=PackedStringArray("query_label", "found_nodes_label", "final_node_label")]
 script = ExtResource("1_a63qp")
 query_label = NodePath("Control/HSplitContainer/QueryResultLabel")
+found_nodes_label = NodePath("Control/HSplitContainer/Points")
+final_node_label = NodePath("Control/HSplitContainer/FinalResult")
 
-[node name="Control" type="Control" parent="." node_paths=PackedStringArray("points_label")]
+[node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,7 +17,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_rkpd8")
-points_label = NodePath("HSplitContainer/Points")
+draw_cursor = true
+layers = 3
+point_count = 12
 
 [node name="HSplitContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 1
@@ -37,8 +41,14 @@ text = "increase points"
 layout_mode = 2
 text = "Decrease points"
 
-[node name="Points" type="Label" parent="Control/HSplitContainer"]
+[node name="Points" type="RichTextLabel" parent="Control/HSplitContainer"]
+custom_minimum_size = Vector2(3.44, 228.385)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="FinalResult" type="Label" parent="Control/HSplitContainer"]
 layout_mode = 2
 
+[connection signal="update_cursor" from="Control" to="." method="_raycast_points"]
 [connection signal="pressed" from="Control/HSplitContainer/IncreasePointsButton" to="Control" method="_on_increase_points_button_pressed"]
 [connection signal="pressed" from="Control/HSplitContainer/DecreasePointsButton" to="Control" method="_on_decrease_points_button_pressed"]
